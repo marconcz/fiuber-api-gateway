@@ -8,7 +8,7 @@ WORKDIR /app
 # COPY pyproject.toml pyproject.toml
 # RUN poetry install --no-interaction --no-ansi
 
-#OPCION 2: EXPORTAR DEPENDENCIAS DE POETRY A REQUIREMENTS.TXT Y AHORRARNOS POETRY EN DOCKER
+#OPCION 2: EXPORTAR DEPENDENCIAS DE POETRY A REQUIREMENTS.TXT Y AHORRARNOS POETRY EN DOCKER.
 #CORRER ESTE COMANDO ANTES DE DOCKERIZAR: poetry export --without-hashes --format=requirements.txt > requirements2.txt
 COPY requirements2.txt requirements.txt 
 RUN pip3 install -r requirements.txt
