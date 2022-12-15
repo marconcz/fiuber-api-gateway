@@ -68,6 +68,34 @@ async def init(trip_id):
     r = init_trip('init', trip_id)
     return r
 
+#If a driver want finish a trip completed
+@router.post("/trip/finish/{trip_id}")
+async def finish_trip(trip_id):
+    r = trip_completed(f"trip/finish/{trip_id}", trip_id)
+    return r
+
+#Qualify: A user wants qualify a trip
+@router.post("/trip/{trip_id}/qualify/{user_id}/score/{score}")
+async def trip_qualification(trip_id, user_id, score):
+    r = trip_qualify(f"trip/{trip_id}/qualify/{user_id}/score/{score}", trip_id, user_id, score)
+    return r
+
+#Return score average
+@router.get("/score/{user_id}")
+async def get_score(user_id):
+    return get_score_average(f"score/{user_id}", user_id)
+
+#Return last user trips
+@router.get("/trips/history/{user_id}")
+async def get_history(user_id):
+    return get_trip_history(f"trips/history/{user_id}", user_id)
+
+@router.post("/trip/canceled/{trip_id}")
+async def calcel_trip(trip_id):
+    return cancel_a_trip(f"trip/canceled/{trip_id}", trip_id)
+
+# FINISH TRIPS API 
+
 @router.get("/passenger/email")
 async def validate_register(email):
     return validate_user_registered('passenger/email', email)
@@ -79,3 +107,33 @@ async def register_passenger(passenger: Passenger):
 @router.put("/passengers")
 async def update_passenger(passenger: PassengerUpdateSchema):
     return update_a_passenger('passengers', passenger)
+
+@router.post("/passenger/data")
+async def get_passenger(email):
+    return get_a_passenger('passenger/data', email)
+
+@router.post("/drivers")
+async def register_driver(driver: Driver):
+    return register_a_driver('drivers', driver)
+
+@router.put("/drivers")
+async def update_driver(driver: PassengerUpdateSchema):
+    return update_a_driver('drivers', driver)
+
+@router.post("/driver/data")
+async def get_driver(email):
+    return get_a_driver('driver/data', email)
+
+@router.get("/balance/{address}")
+async def get_wallet_balance(address):
+    return get_balance(f"balance/{address}")
+
+@router.post("/deposit")
+async def createDepositRoute(privateKey: str, amountInEthers: str):
+    return deposit('deposit', privateKey, amountInEthers)
+
+@router.post("/pay")
+async def createPaymentRoute(privateKey: str, amountInEthers: str):
+    return pay('pay', privateKey, amountInEthers)
+
+
